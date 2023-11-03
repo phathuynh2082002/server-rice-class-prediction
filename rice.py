@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt
 
 import sklearn
 from sklearn.preprocessing import StandardScaler
+from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
@@ -26,7 +28,7 @@ df = pd.read_excel('data_sets.xlsx', sheet_name='Data')
 # has_empty_cells = df.isnull().values.any()
 
 # Thay thế các giá trị bị thiếu bằng giá trị trung bình
-column_means = df.mean()
+column_means = df.mean(numeric_only=True)
 df = df.fillna(column_means)
 
 # Xóa các điểm nhiễu ở giá trị cực đại trong 2 cột Major_Axis_Length và Major_Axis_Length
@@ -54,7 +56,7 @@ def standar_data(data):
      return data
 
 def standar_data_predict(data):
-     mean = np.mean(X_predict)
+     mean = np.mean(X_predict, axis=0)
      std = np.std(X_predict)
      data = data - mean
      data /= std

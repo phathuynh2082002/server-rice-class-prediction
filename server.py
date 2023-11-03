@@ -13,6 +13,7 @@ app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS'] =  'Content-Type'
 
+
 # Khởi tạo đường dẫn dự đoán
 @app.route('/predict', methods=['post'])
 @cross_origin(origins='*')
@@ -22,6 +23,7 @@ def predict_modal():
     data = data.astype(float)
     loaded_model = pickle.load(open('sup_vector_model.sav', 'rb'))
     data_predict = standar_data_predict(data)
+    print(data_predict['Area'])
     result = loaded_model.predict(data_predict)
     return result[0]
 
